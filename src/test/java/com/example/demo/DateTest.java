@@ -57,5 +57,13 @@ public class DateTest extends DemoApplicationTests{
         log.info("日期转换：{}",strToDateLong(date));
     }
 
+    @Test
+    public void getNowTest(){
+        long systemTime = System.currentTimeMillis();
+        log.info("系统时间：{}",systemTime);
+        long now = new Date().getTime();
+        log.info("当前时间：{}",now);
+    }
+
 
 }

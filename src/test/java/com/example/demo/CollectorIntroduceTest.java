@@ -1,16 +1,11 @@
 package com.example.demo;
 
-import com.alibaba.fastjson.JSON;
 import com.example.demo.putong.Phone;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.Test;
 import org.springframework.stereotype.Component;
 import java.io.UnsupportedEncodingException;
-import java.text.DecimalFormat;
-import java.util.Arrays;
-import java.util.Date;
 import java.util.List;
-import java.util.Map;
 import java.util.stream.Collectors;
 
 
@@ -22,44 +17,6 @@ import java.util.stream.Collectors;
 @Component
 @Slf4j
 public class CollectorIntroduceTest extends DemoApplicationTests{
-
-    @Test
-    public void TipTest(){
-        List<Role> roleList = Data.roleList();
-        List<Role> A = roleList.stream().sorted((o1, o2) -> o1.getFullPrice() - o2.getFullPrice()).collect(Collectors.toList());
-        List<Role> B = roleList.stream().sorted((o1, o2) -> o1.getSubPrice() - o2.getSubPrice()).collect(Collectors.toList());
-
-        if (A.equals(B)){
-            System.out.println("相等");
-        }else{
-            System.out.println("不相等");
-        }
-
-       /* if (CollectionUtils.isEqualCollection(A,B)){
-            System.out.println("相等");
-        }else{
-            System.out.println("不相等");
-        }*/
-
-
-       /* roleList.sort((o1, o2) -> o1.getFullPrice() - o2.getFullPrice());
-
-        roleList.forEach(role -> System.out.println(role));*/
-    }
-
-    @Test
-    public void timeTest(){
-        long time = System.currentTimeMillis();
-        log.info("获取的时间：{}",time);
-
-        Double number = 7832.5675789;
-        DecimalFormat decimalFormat = new DecimalFormat("#.000");
-        log.info("四舍五入保留三位小数：{}",decimalFormat.format(number));
-
-        long time1 = new Date().getTime();
-
-        log.info("好烦啊：{}",time1);
-    }
 
     @Test
     public void gbkTest() throws UnsupportedEncodingException {
@@ -81,12 +38,7 @@ public class CollectorIntroduceTest extends DemoApplicationTests{
         System.out.println(new String(utfBytes,"UTF-8"));
     }
 
-    @Test
-    public void stringfilterTest2(){
-      List<String> strings = Data.stringList();
-        List<String> green = strings.stream().filter(s -> !s.equals("green")).collect(Collectors.toList());
-        log.info("得到的数据：{}",green);
-    }
+
     @Test
     public void filterTest3(){
         List<Phone> phoneList = Data.phoneList();

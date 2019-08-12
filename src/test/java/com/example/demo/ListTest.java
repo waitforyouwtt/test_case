@@ -91,4 +91,23 @@ public class ListTest extends DemoApplicationTests{
         List<Integer> rolesIds = userInfo.getRolesList().stream().map(Roles::getId).collect(Collectors.toList());
         System.out.println("获取的结果：{}"+rolesIds);
     }
+
+    @Test
+    public void compareListTest(){
+        List<Role> roleList = Data.roleList();
+        List<Role> A = roleList.stream().sorted((o1, o2) -> o1.getFullPrice() - o2.getFullPrice()).collect(Collectors.toList());
+        List<Role> B = roleList.stream().sorted((o1, o2) -> o1.getSubPrice() - o2.getSubPrice()).collect(Collectors.toList());
+
+        if (A.equals(B)){
+            System.out.println("相等");
+        }else{
+            System.out.println("不相等");
+        }
+
+       /* if (CollectionUtils.isEqualCollection(A,B)){
+            System.out.println("相等");
+        }else{
+            System.out.println("不相等");
+        }*/
+    }
 }

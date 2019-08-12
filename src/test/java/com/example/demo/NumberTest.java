@@ -6,6 +6,7 @@ import org.springframework.stereotype.Component;
 
 import java.math.BigDecimal;
 import java.math.MathContext;
+import java.text.DecimalFormat;
 
 /**
  * @Author: 凤凰[小哥哥]
@@ -56,6 +57,13 @@ public class NumberTest extends DemoApplicationTests{
         BigDecimal amount = price.multiply(BigDecimal.valueOf(100));
         int productPrice = amount.intValue();
         System.out.println("得到的金额："+productPrice);
+    }
+
+    @Test
+    public void retainNumberTest(){
+        Double number = 7832.5675789;
+        DecimalFormat decimalFormat = new DecimalFormat("#.000");
+        log.info("四舍五入保留三位小数：{}",decimalFormat.format(number));
     }
 
     @Test
