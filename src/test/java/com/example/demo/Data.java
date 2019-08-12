@@ -69,17 +69,12 @@ public class Data {
         return userInfo;
     }
 
-    public static List<Phone> phoneList(){
+    public static List<Phone> phoneList() {
         return Arrays.asList(
-                new Phone("手机D",23,"white"),
-                new Phone("手机A",20,"red"),
-                new Phone("手机A",87,"red"),
-                new Phone("手机B",21,"green"),
-                new Phone("手机C",22,"black"),
-                new Phone("手机E",57,"black"),
-                new Phone("手机F",66,"black")
-
-                );
+                new Phone("手机A", 87, "red"),
+                new Phone("手机B", 21, "green"),
+                new Phone("手机C", 22, "black")
+        );
     }
 
     public static List<String> stringList(){

@@ -1,5 +1,6 @@
 package com.example.demo;
 
+import com.alibaba.fastjson.JSON;
 import com.example.demo.putong.Phone;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.Test;
@@ -21,19 +22,6 @@ import java.util.stream.Collectors;
 @Component
 @Slf4j
 public class CollectorIntroduceTest extends DemoApplicationTests{
-
-    @Test
-    public void filterTest(){
-        List<Apple> appleList = Data.appleList();
-        List<Apple> apples = appleList.stream().
-                filter(apple -> apple.getColor().equals("green")).collect(Collectors.toList());
-      /*  System.out.println("得到的结果："+apples);*/
-
-        Map<String, List<Apple>> map = apples.stream().collect(Collectors.groupingBy(Apple::getColor));
-        map.forEach((k,v)->{
-            System.out.println("得到的解雇："+v);
-        });
-    }
 
     @Test
     public void TipTest(){

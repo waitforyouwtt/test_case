@@ -1,6 +1,8 @@
 package com.example.demo;
 
+import com.alibaba.fastjson.JSON;
 import com.example.demo.putong.Phone;
+import com.example.demo.putong.Roles;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.Test;
 import org.springframework.stereotype.Component;
@@ -65,6 +67,24 @@ public class Java8Test extends DemoApplicationTests {
                 Phone phone = collect.get();
                 log.info("查找一组数据中最大的值:{}", phone);
             }
+        });
+    }
+
+    /**
+     * 集合去重
+     */
+    @Test
+    public void distinctList(){
+        List<Integer> integers = Data.rolesList().stream().map(Roles::getId).distinct().collect(Collectors.toList());
+        System.out.println("得到的数据："+integers);
+    }
+
+    @Test
+    public void groupingByTest(){
+        List<Apple> apples = Data.appleList();
+        Map<String, List<Apple>> map = apples.stream().collect(Collectors.groupingBy(Apple::getColor));
+        map.forEach((k,v)->{
+            log.info("得到的结果：{}", JSON.toJSON(v.toString()));
         });
     }
 }

@@ -24,14 +24,7 @@ import java.util.stream.Collectors;
 @Slf4j
 public class ListTest extends DemoApplicationTests{
 
-    /**
-     * 集合去重
-     */
-    @Test
-    public void querydistinctList(){
-        List<Integer> integers = Data.rolesList().stream().map(Roles::getId).distinct().collect(Collectors.toList());
-        System.out.println("得到的数据："+integers);
-    }
+
 
     @Test
     public void testA(){

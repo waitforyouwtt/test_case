@@ -5,6 +5,7 @@ import org.junit.Test;
 import org.springframework.stereotype.Component;
 
 import java.math.BigDecimal;
+import java.math.MathContext;
 
 /**
  * @Author: 凤凰[小哥哥]
@@ -55,5 +56,13 @@ public class NumberTest extends DemoApplicationTests{
         BigDecimal amount = price.multiply(BigDecimal.valueOf(100));
         int productPrice = amount.intValue();
         System.out.println("得到的金额："+productPrice);
+    }
+
+    @Test
+    public void amountTest(){
+        BigDecimal lastAmount = new BigDecimal(18929.69);
+        BigDecimal thisAmount = new BigDecimal(18783.98);
+        BigDecimal subtract = lastAmount.subtract(thisAmount).setScale(2,BigDecimal.ROUND_UP);
+        log.info("差额：{}",subtract);
     }
 }
