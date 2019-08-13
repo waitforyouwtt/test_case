@@ -15,4 +15,6 @@ import lombok.ToString;
 public class Apple {
     private String color;
     private long weight;
+
+    private final Integer quality;
 }

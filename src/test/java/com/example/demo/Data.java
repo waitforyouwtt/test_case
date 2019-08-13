@@ -1,5 +1,6 @@
 package com.example.demo;
 
+import com.example.demo.putong.Email;
 import com.example.demo.putong.Phone;
 import com.example.demo.putong.Roles;
 import com.example.demo.putong.UserInfo;
@@ -19,12 +20,12 @@ public class Data {
 
     public static List<Apple> appleList(){
         List<Apple> list = Arrays.asList(
-                new Apple("green", 150)
-                , new Apple("yellow", 120)
-                , new Apple("green", 170)
-                , new Apple("green", 150)
-                , new Apple("yellow", 120)
-                , new Apple("green", 170)
+                new Apple("red", 150,150)
+                , new Apple("yellow", 140,140)
+                , new Apple("green", 210,210)
+                , new Apple("green", 150,150)
+                , new Apple("yellow", 120,120)
+                , new Apple("green", 170,170)
         );
         return list;
     }
@@ -75,6 +76,10 @@ public class Data {
                 new Phone("手机B", 21, "green"),
                 new Phone("手机C", 22, "black")
         );
+    }
+
+    public static List<Email> emailList(){
+        return Arrays.asList(new Email("1140867582@qq.com",20,true),new Email("15290810931",25,false));
     }
 
     public static List<String> stringList(){
