@@ -12,6 +12,8 @@ import java.util.concurrent.ConcurrentMap;
 import java.util.concurrent.ConcurrentSkipListMap;
 import java.util.function.BinaryOperator;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
+
 import static java.util.stream.Collectors.groupingBy;
 import static java.util.stream.Collectors.toList;
 
@@ -164,7 +166,7 @@ public class Java8Test extends DemoApplicationTests {
         log.info("集合中的最大记录:{}，集合中的最小记录:{}",collectMax,collectMin);
     }
     @Test
-    public void fd5() {
+    public void summingTest() {
         Map<Boolean, List<Email>> collectBoolean = emails.stream().collect(Collectors.partitioningBy(Email::isStatus));
         Optional<Email> collect = emails.stream().collect(Collectors.reducing(
                 BinaryOperator.maxBy(Comparator.comparingInt(Email::getLength))
@@ -177,10 +179,36 @@ public class Java8Test extends DemoApplicationTests {
     }
     @Test
     public void fd6(){
-
+        Double collectDouble = apples.stream().collect(Collectors.summingDouble(Apple::getQuality));
+        log.info("集合sum 计算的结果[双精度]:{}",collectDouble);
+        int collectInteger = apples.stream().map(Apple::getQuality).mapToInt(Integer::intValue).sum();
+        log.info("集合sum 计算的结果[整形]:{}",collectInteger);
+        Long collectLong = apples.stream().collect(Collectors.summingLong(Apple::getQuality));
+        log.info("集合sum 计算的结果[长整形]:{}",collectLong);
+        Integer collectInt = apples.stream().collect(Collectors.summingInt(Apple::getQuality));
+        LinkedList<Apple> collect = apples.stream().filter(d -> d.getQuality() > 150).collect(Collectors.toCollection(LinkedList::new));
+        log.info("大于150的集合：{}",JSON.toJSON(collect));
+        Set<Email> collectSetList = emails.stream().filter(Email::isStatus).collect(Collectors.toSet());
+        log.info("去重：{}",collectSetList);
     }
+
     @Test
-    public void fd7(){
+    public void toStreamTest(){
+       Stream<Apple> appleStream = Stream.of(new Apple("red",20,20));
+       apples.parallelStream().forEach(apple -> System.out.println(apple.getColor()));
+       Collections.sort(apples,((o1, o2) -> Integer.compare(o1.getQuality(),o2.getQuality())));
+       log.info("排序后的结果：{}",JSON.toJSON(apples));
+       List<Apple> appleCollect = apples.stream().distinct().collect(toList());
+       log.info("集合去重：{}",appleCollect);
+        List<Apple> collectSkip = apples.stream().skip(5).collect(toList());
+        log.info("越过前5个：{}",collectSkip);
+        List<Apple> collectLimit = apples.stream().limit(2).collect(toList());
+        log.info("集合中取两条记录：{}",collectLimit);
+        Apple first = apples.stream().findFirst().get();
+        log.info("得到第一个：{}",first);
+        List<Apple> filterThenSort = apples.stream().filter(apple -> apple.getColor().equals("yellow")).sorted(Comparator.comparing(Apple::getQuality).reversed()).collect(toList());
+        log.info("筛选后排序：{}",filterThenSort);
+        apples.stream().filter(apple -> apple.getColor().equals("green")).distinct().sorted();
 
     }
     @Test

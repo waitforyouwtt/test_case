@@ -23,7 +23,7 @@ public class Data {
                 new Apple("red", 150,150)
                 , new Apple("yellow", 140,140)
                 , new Apple("green", 210,210)
-                , new Apple("green", 150,150)
+                , new Apple("green", 210,210)
                 , new Apple("yellow", 120,120)
                 , new Apple("green", 170,170)
         );
@@ -79,7 +79,10 @@ public class Data {
     }
 
     public static List<Email> emailList(){
-        return Arrays.asList(new Email("1140867582@qq.com",20,true),new Email("15290810931",25,false));
+        return Arrays.asList(new Email("1140867582@qq.com",20,true),
+                new Email("15290810931",25,false),
+                new Email("15290810932",25,false)
+                );
     }
 
     public static List<String> stringList(){
