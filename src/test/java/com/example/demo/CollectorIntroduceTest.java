@@ -1,12 +1,18 @@
 package com.example.demo;
 
+import com.alibaba.fastjson.JSON;
+import com.example.demo.putong.Email;
 import com.example.demo.putong.Phone;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.Test;
 import org.springframework.stereotype.Component;
 import java.io.UnsupportedEncodingException;
+import java.util.Comparator;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
+
+import static java.util.stream.Collectors.toList;
 
 
 /**
@@ -94,6 +100,20 @@ public class CollectorIntroduceTest extends DemoApplicationTests{
             }
             log.info("跳出循环吗？？？");
         });*/
+    }
+
+    @Test
+    public void fd(){
+        List<Phone> phones = Data.phoneList();
+        List<Phone> appleCollect = phones.stream().distinct().collect(toList());
+        log.info("集合去重：{}", JSON.toJSON(appleCollect));
+    }
+
+    @Test
+    public void getMax(){
+        List<Email> emails = Data.emailList();
+        Optional<Email> collect = emails.stream().collect(Collectors.maxBy(Comparator.comparing(Email::getCreateTime)));
+        log.info("获取时间最大的：{}",collect);
     }
 
 

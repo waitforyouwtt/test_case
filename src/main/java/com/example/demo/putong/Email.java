@@ -4,6 +4,8 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.Date;
+
 /**
  * @Author: 凤凰[小哥哥]
  * @Date: 2019/8/13 14:52
@@ -19,5 +21,9 @@ public class Email {
     private Integer length;
 
     private boolean status;
+
+    private Date createTime;
+
+    private Date updateTime;
 
 }
