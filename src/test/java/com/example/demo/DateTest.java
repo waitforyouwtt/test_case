@@ -53,8 +53,14 @@ public class DateTest extends DemoApplicationTests{
 
     @Test
     public void dateTest(){
-        String date = "2012-12-12 12:12:12";
-        log.info("日期转换：{}",strToDateLong(date));
+        Date beginDate = strToDateLong("2012-12-12 12:12:12");
+        Date endDate   = strToDateLong("2032-12-12 12:12:12");
+        if (new Date().after(beginDate) || new Date().before(endDate)){
+            log.info("跳出循环");
+        }else{
+            log.info("符合条件");
+        }
+
     }
 
     @Test

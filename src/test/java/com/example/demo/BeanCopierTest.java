@@ -39,7 +39,7 @@ public class BeanCopierTest extends DemoApplicationTests{
     @Test
     public void copyTest() {
         List<UserInfo> userInfos = Lists.newArrayList();
-        for (int i = 0; i < 100000; i++) {
+        for (int i = 0; i < 500000; i++) {
             UserInfo userInfo = new UserInfo();
             userInfos.add(userInfo);
         }
@@ -59,7 +59,7 @@ public class BeanCopierTest extends DemoApplicationTests{
     @Test
     public void setTest() {
         List<UserInfo> userInfos = Lists.newArrayList();
-        for (int i = 0; i < 100000; i++) {
+        for (int i = 0; i < 500000; i++) {
             UserInfo userInfo = new UserInfo();
             userInfos.add(userInfo);
         }

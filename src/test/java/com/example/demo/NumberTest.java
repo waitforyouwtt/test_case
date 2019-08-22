@@ -73,4 +73,18 @@ public class NumberTest extends DemoApplicationTests{
         BigDecimal subtract = lastAmount.subtract(thisAmount).setScale(2,BigDecimal.ROUND_UP);
         log.info("差额：{}",subtract);
     }
+
+    @Test
+    public void save(){
+        /*DecimalFormat df = new DecimalFormat("###.#");
+        BigDecimal b1 = new BigDecimal("28.1109");
+        BigDecimal b2 = new BigDecimal("28.00");
+        System.out.println("小数格式化：" + df.format(b1));
+        System.out.println("整数格式化：" + df.format(b2));*/
+        Integer discountPrice = 2;
+        Integer oldSellingPrice = 2;
+        DecimalFormat df = new DecimalFormat("###.#");
+        BigDecimal discountRate =  new BigDecimal(discountPrice).multiply(new BigDecimal(10)).divide(new BigDecimal(oldSellingPrice),1,BigDecimal.ROUND_DOWN);
+        log.info("得到的折扣是：{}",df.format(discountRate));
+    }
 }
