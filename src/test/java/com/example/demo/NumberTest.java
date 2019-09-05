@@ -1,6 +1,7 @@
 package com.example.demo;
 
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.lang3.StringUtils;
 import org.junit.Test;
 import org.springframework.stereotype.Component;
 
@@ -86,5 +87,15 @@ public class NumberTest extends DemoApplicationTests{
         DecimalFormat df = new DecimalFormat("###.#");
         BigDecimal discountRate =  new BigDecimal(discountPrice).multiply(new BigDecimal(10)).divide(new BigDecimal(oldSellingPrice),1,BigDecimal.ROUND_DOWN);
         log.info("得到的折扣是：{}",df.format(discountRate));
+    }
+
+    @Test
+    public void isNullTest(){
+        BigDecimal money = new BigDecimal("");
+        if (money == null){
+            log.info("kong");
+        }else{
+            log.info("不是kong");
+        }
     }
 }

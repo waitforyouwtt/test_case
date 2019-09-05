@@ -7,9 +7,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.junit.Test;
 import org.springframework.stereotype.Component;
 import java.io.UnsupportedEncodingException;
-import java.util.Comparator;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 import java.util.stream.Collectors;
 
 import static java.util.stream.Collectors.toList;
@@ -114,6 +112,15 @@ public class CollectorIntroduceTest extends DemoApplicationTests{
         List<Email> emails = Data.emailList();
         Optional<Email> collect = emails.stream().collect(Collectors.maxBy(Comparator.comparing(Email::getCreateTime)));
         log.info("获取时间最大的：{}",collect);
+    }
+
+    @Test
+    public void getfd(){
+        List<Phone> phones = Data.phoneList();
+        List<String> strings = phones.stream().map(Phone::getColor).collect(Collectors.toList());
+        List<String> str = strings.stream().filter(s -> !s.equals("red")  && !s.equals("green")).collect(Collectors.toList());
+        Set<String> string = new HashSet<>(str);
+        log.info("你好：{}",string);
     }
 
 

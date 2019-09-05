@@ -16,7 +16,7 @@ import java.util.Date;
 @AllArgsConstructor
 public class Email {
 
-    private String email;
+    private String nickName;
 
     private Integer length;
 

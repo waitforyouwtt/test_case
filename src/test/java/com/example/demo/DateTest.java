@@ -1,12 +1,17 @@
 package com.example.demo;
 
+import com.example.demo.putong.Email;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.lang3.StringUtils;
+import org.assertj.core.util.Lists;
 import org.junit.Test;
 import org.springframework.stereotype.Component;
 
+import java.math.BigDecimal;
 import java.text.ParsePosition;
 import java.text.SimpleDateFormat;
-import java.util.Date;
+import java.util.*;
+import java.util.stream.Collectors;
 
 /**
  * @Author: 凤凰[小哥哥]
@@ -53,7 +58,7 @@ public class DateTest extends DemoApplicationTests{
 
     @Test
     public void dateTest(){
-        Date beginDate = strToDateLong("2012-12-12 12:12:12");
+        Date beginDate = null;// strToDateLong("2012-12-12 12:12:12");
         Date endDate   = strToDateLong("2032-12-12 12:12:12");
         if (new Date().after(beginDate) || new Date().before(endDate)){
             log.info("跳出循环");
@@ -71,5 +76,15 @@ public class DateTest extends DemoApplicationTests{
         log.info("当前时间：{}",now);
     }
 
+    @Test
+    public void getMaxTest(){
+        BigDecimal a = new BigDecimal("10.5");
+        BigDecimal b = new BigDecimal("20.5");
+        if (a.compareTo(b) == -1){
+            log.info("a 比较小");
+        }else {
+            log.info("b 比较小");
+        }
+    }
 
 }
