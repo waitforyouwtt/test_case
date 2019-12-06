@@ -79,8 +79,8 @@ public class Data {
     public static List<Phone> phoneList() {
         return Arrays.asList(
                 new Phone("手机A", 87, "red"),
-                new Phone("手机B", 21, "green"),
-                new Phone("手机C", 22, "white"),
+                new Phone("", 21, "green"),
+                new Phone("", 22, "white"),
                 new Phone("手机C", 22, "black"),
                 new Phone("手机D", 23, "black"),
                 new Phone("手机e", 22, "black")

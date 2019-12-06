@@ -120,7 +120,7 @@ public class CollectorIntroduceTest extends DemoApplicationTests{
         List<String> strings = phones.stream().map(Phone::getColor).collect(Collectors.toList());
         List<String> str = strings.stream().filter(s -> !s.equals("red")  && !s.equals("green")).collect(Collectors.toList());
         Set<String> string = new HashSet<>(str);
-        log.info("你好：{}",string);
+        log.info("你好：{}",JSON.toJSON(string));
     }
 
 

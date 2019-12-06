@@ -4,9 +4,18 @@ import com.alibaba.fastjson.JSON;
 import com.example.demo.putong.Email;
 import com.example.demo.putong.Phone;
 import com.example.demo.putong.Roles;
+import com.google.common.collect.Lists;
+import io.jsonwebtoken.lang.Assert;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.lang3.StringUtils;
 import org.junit.Test;
 import org.springframework.stereotype.Component;
+
+import java.text.DateFormat;
+import java.text.ParsePosition;
+import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.temporal.TemporalAdjusters;
 import java.util.*;
 import java.util.concurrent.ConcurrentMap;
 import java.util.concurrent.ConcurrentSkipListMap;
@@ -14,6 +23,7 @@ import java.util.function.BinaryOperator;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
+import static com.example.demo.DateTest.DATE_TO_STRING_DEFAULT_PATTERN;
 import static java.util.stream.Collectors.groupingBy;
 import static java.util.stream.Collectors.toList;
 
@@ -34,7 +44,6 @@ public class Java8Test extends DemoApplicationTests {
      */
     @Test
     public void filterTest() {
-
         List<Phone> green = phoneList.stream().filter(apple -> apple.getColor().equals("green")).collect(toList());
         log.info("筛选出条件为....的数据：{}", green);
     }
@@ -213,7 +222,13 @@ public class Java8Test extends DemoApplicationTests {
     }
     @Test
     public void fd8(){
-
+        ArrayList<String> list=new ArrayList<String>();
+        list.add("a");
+        list.add("b");
+        list.add("c");
+        String[] strings = new String[list.size()];
+        list.toArray(strings);
+        log.info("得到的数组：{}",JSON.toJSON(strings));
     }
     @Test
     public void fd9(){
@@ -221,15 +236,34 @@ public class Java8Test extends DemoApplicationTests {
     }
     @Test
     public void fd10(){
-
+        List<String> strings = Arrays.asList("a","b","c","d","d");
+        List<List<String>> partition = Lists.partition(strings, 2);
+        log.info("得到的是啥：{}",partition);
     }
     @Test
     public void fd11(){
+        String startTime = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date().getTime()-15*24*60*60*1000);
+        String endTime = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date());
+        Date startDate = strToDateLong(startTime);
+        System.out.println(startDate +"哈哈哈哈");
+        System.out.println(startTime);
+        System.out.println("***************************");
+        System.out.println(endTime);
 
     }
+
+    public static Date strToDateLong(String strDate) {
+        SimpleDateFormat formatter = new SimpleDateFormat(DATE_TO_STRING_DEFAULT_PATTERN);
+        return formatter.parse(strDate, new ParsePosition(0));
+    }
+
     @Test
     public void fd12(){
-
+        List<Phone> phoneList = Data.phoneList();
+        List<Phone> nameNull = phoneList.stream().filter(apple -> apple.getName().equals("")).collect(toList());
+        log.info("名字为空的集合：{}",JSON.toJSON(nameNull));
+        List<Phone> nameNotNull = phoneList.stream().filter(apple -> !apple.getName().equals("")).collect(toList());
+        log.info("名字不为空的集合：{}",JSON.toJSON(nameNotNull));
     }
     @Test
     public void fd13(){
@@ -237,30 +271,139 @@ public class Java8Test extends DemoApplicationTests {
     }
     @Test
     public void fd14(){
-
+        log.info(getNowFormat());
+        LocalDate today = LocalDate.now();
+        //本月的第一天
+        LocalDate firstday = LocalDate.of(today.getYear(),today.getMonth(),1);
+        //本月的最后一天
+        LocalDate lastDay =today.with(TemporalAdjusters.lastDayOfMonth());
+        System.out.println("本月的第一天" + firstday);
+        System.out.println("本月的最后一天" + lastDay);
     }
+
+    public static String getNowFormat() {
+        SimpleDateFormat df = new SimpleDateFormat("yyyyMMddHHmmss");
+        return  df.format(new Date());
+    }
+
     @Test
     public void fd1(){
-
+      log.info(getLastDay().substring(0,6));
     }
+
+    private static String getLastDay(){
+        return   LocalDate.now().with(TemporalAdjusters.lastDayOfMonth()).toString().replace("-", "");
+    }
+
+
     @Test
     public void fd16(){
-
+      int fd =  Calendar.getInstance().get(Calendar.MONTH) + 1;
+      log.info("fda:{}",fd);
     }
     @Test
     public void fd17(){
-
+        String updateTime = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date().getTime()-30*24*60*60*1000);
+       log.info("大：{}",updateTime);
     }
     @Test
     public void fd162(){
-
+        log.info(getDateForDayBefor());
     }
-    @Test
-    public void f32d(){
 
+    public static String getDateForDayBefor() {
+        Date date = new Date();
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTime(date);
+        calendar.add(Calendar.DAY_OF_MONTH, -40);
+        SimpleDateFormat df = new SimpleDateFormat("yyyyMMdd");
+        String time = df.format(calendar.getTime());
+        return time;
     }
+
+    public String f32d(){
+        Date date = new Date();//当前日期
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");//格式化对象
+        Calendar calendar = Calendar.getInstance();//日历对象
+        calendar.setTime(date);//设置当前日期
+        calendar.add(Calendar.MONTH, -2);//月份减一
+        return sdf.format(calendar.getTime());
+    }
+
+    /**
+     *   Set<String> locationSet = userVO.getOrganizations().stream().map(OrganizationVO::getLocationCode).collect(Collectors.toSet());
+     locationCodeList.addAll(locationSet);
+     locationCodeList.sort(Comparator.comparing(Function.identity()));
+     */
     @Test
     public void fd32(){
+        Set<String> setList = apples.stream().map(Apple::getColor).collect(Collectors.toSet());
+    }
+
+    @Test
+    public void di(){
+       /* List list = Arrays.asList("hello","word");
+        String params = listToString(list,',');
+        log.info("接受到的参数：{}",params);*/
+
+        List<Long> list = Arrays.asList(5678L,7890L,1234L);
+        String params = listToString(list,',');
+        log.info("接受到的参数：{}",params);
+    }
+
+    public String listToString(List list, char separator) {
+        return StringUtils.join(list.toArray(), separator);
+    }
+
+    @Test
+    public void fd33(){
+        List<String> list1 = new ArrayList<String>();
+        List<String> list2 = new ArrayList<String>();
+        list1.add("g");
+        list1.add("s");
+        list1.add("a");
+        list1.add("f");
+
+        list2.add("g");
+        list2.add("c");
+        list2.add("b");
+        list2.add("a");
+        boolean b = list1.retainAll(list2);
+        System.out.print(b);
+    }
+
+    @Test
+    public void fd34(){
+
+ /*       String month = "989343";
+        Long months = Long.valueOf(month);
+        log.info("结果：{}",months);*/
+
+        String a = new String("ab");
+        String b = new String("ab");
+        String aa = "ab";
+        String bb = "ab";
+
+        log.info("a得到的值:{}",a);
+        log.info("b得到的值：{}",b);
+        log.info("aa得到的值：{}",aa);
+        log.info("bb 得到的值：{}",bb);
+
 
     }
+
+    @Test
+    public void fdffs(){
+      String music =  "李玉刚-更好遇见你";
+      String singer = music.substring(0,music.indexOf("-"));
+      log.info("得到的值：{}",singer);
+
+    }
+
+    @Test
+    public void beep(){
+        java.awt.Toolkit.getDefaultToolkit().beep();
+    }
+
+
 }

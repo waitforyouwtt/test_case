@@ -1,6 +1,5 @@
 package com.example.demo;
 
-import com.example.demo.putong.Phone;
 import com.example.demo.putong.UserInfo;
 import com.example.demo.putong.UserInfo2;
 import lombok.extern.slf4j.Slf4j;
