@@ -4,17 +4,11 @@ import com.example.demo.putong.Email;
 import com.example.demo.putong.Phone;
 import com.example.demo.putong.Roles;
 import com.example.demo.putong.UserInfo;
-import com.example.demo.sms.SingleSms;
-import org.assertj.core.util.Lists;
-
-import java.text.ParsePosition;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 
-import static com.example.demo.DateTest.DATE_TO_STRING_DEFAULT_PATTERN;
 
 /**
  * @Author: 凤凰[小哥哥]
@@ -45,21 +39,6 @@ public class Data {
         return list;
     }
 
-    public static SingleSms smsData(){
-        SingleSms sms = new SingleSms();
-        sms.setAppId("521");
-        sms.setGzip("off");
-        sms.setEncode("UTF-8");
-        sms.setMobile("17621007255");
-        sms.setContent("测试单条发送短信");
-        sms.setTimerTime("2019-07-11 12:12:12");
-        sms.setCustomSmsId("521");
-        sms.setExtendedCode("321123");
-        sms.setRequestTime(System.currentTimeMillis());
-        sms.setRequestValidPeriod(1);
-        return sms;
-    }
-
     public static List<Roles> rolesList(){
         return new ArrayList<>(Arrays.asList(
                 new Roles(1,"超级管理员"),
@@ -79,8 +58,8 @@ public class Data {
     public static List<Phone> phoneList() {
         return Arrays.asList(
                 new Phone("手机A", 87, "red"),
-                new Phone("", 21, "green"),
-                new Phone("", 22, "white"),
+                new Phone("手机B", 21, "green"),
+                new Phone("手机F", 22, "white"),
                 new Phone("手机C", 22, "black"),
                 new Phone("手机D", 23, "black"),
                 new Phone("手机e", 22, "black")

@@ -1,0 +1,9 @@
+@startuml
+前台 -> yhSoiManageProductcenter: params request
+yhSoiManageProductcenter -> yhSodProductcenter: request
+
+yhSodProductcenter -> database_async_task_record: request
+database_async_task_record --> yhSodProductcenter: response
+yhSodProductcenter --> yhSoiManageProductcenter
+yhSoiManageProductcenter --> 前台
+@enduml

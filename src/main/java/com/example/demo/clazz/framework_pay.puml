@@ -1,0 +1,35 @@
+@startuml
+
+interface RefundHandler
+interface InsideHandler
+interface QueryRefundHandler
+interface QueryTradeHandler
+interface CallBackHandler
+
+abstract class AbstractPayHandler
+abstract class AbstractAliGlobalPayHandler
+
+class AliGlobalAppPayRefundHandler
+class AliGlobalAppPayQueryRefundHandler
+class AliGlobalAppPayQueryTradeHandler
+class AliGlobalAppCallBackHandler
+
+
+RefundHandler  <|.... AliGlobalAppPayRefundHandler
+InsideHandler  <|.... AliGlobalAppPayRefundHandler
+AbstractAliGlobalPayHandler <|--- AliGlobalAppPayRefundHandler
+
+InsideHandler <|.... AliGlobalAppPayQueryRefundHandler
+QueryRefundHandler <|.... AliGlobalAppPayQueryRefundHandler
+AbstractAliGlobalPayHandler <|---AliGlobalAppPayQueryRefundHandler
+
+InsideHandler <|....AliGlobalAppPayQueryTradeHandler
+QueryTradeHandler <|....AliGlobalAppPayQueryTradeHandler
+AbstractAliGlobalPayHandler<--- AliGlobalAppPayQueryTradeHandler
+
+CallBackHandler <|....AliGlobalAppCallBackHandler
+AbstractAliGlobalPayHandler <|--- AliGlobalAppCallBackHandler
+AbstractPayHandler <|--- AbstractAliGlobalPayHandler
+
+
+@enduml

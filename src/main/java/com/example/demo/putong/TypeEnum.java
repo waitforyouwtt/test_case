@@ -64,4 +64,8 @@ public enum TypeEnum {
         return list;
     }
 
+    public static void main(String[] args) {
+        System.out.println("获取到的是："+toList2());
+    }
+
 }

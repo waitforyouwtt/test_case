@@ -1,0 +1,7 @@
+@startuml
+前台 -> yhSoiManageProductcenter: request
+yhSoiManageProductcenter -> elasticSearch: request[brand_code|brand_name]
+
+elasticSearch --> yhSoiManageProductcenter: response
+yhSoiManageProductcenter --> 前台: response
+@enduml

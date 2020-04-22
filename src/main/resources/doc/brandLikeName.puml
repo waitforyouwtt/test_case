@@ -1,0 +1,7 @@
+@startuml
+前台 -> yh_soi_manage_productcenter: request
+yh_soi_manage_productcenter -> yh_sod_jd_adapter: request
+
+yh_sod_jd_adapter --> yh_soi_manage_productcenter: response
+yh_soi_manage_productcenter --> 前台: response
+@enduml

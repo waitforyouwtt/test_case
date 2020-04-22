@@ -1,0 +1,14 @@
+@startuml
+前台 -> yhSoiManageProductcenter: request[channelCode & productCodeList]
+note right:根据渠道编号和商品集合查询
+yhSoiManageProductcenter -> yhSodBasicCenter: request
+note right: 查询渠道下的业态，已去重
+
+yhSoiManageProductcenter -> yhSodProductcenter: request
+yhSodProductcenter -> product_description: 判断商品是否维护文描
+yhSodProductcenter -> product_category: 判断商品是否维护分类信息
+product_description --> yhSodProductcenter :response
+product_category  --> yhSodProductcenter : response
+yhSodProductcenter --> yhSoiManageProductcenter: response
+note right: 根据不同的渠道去同步信息
+@enduml

@@ -1,0 +1,7 @@
+@startuml
+前台 -> yh_soi_manage_productcenter: request
+yh_soi_manage_productcenter -> 京东适配层: request
+
+京东适配层 --> yh_soi_manage_productcenter: response
+yh_soi_manage_productcenter --> 前台: response
+@enduml

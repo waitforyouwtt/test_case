@@ -405,5 +405,194 @@ public class Java8Test extends DemoApplicationTests {
         java.awt.Toolkit.getDefaultToolkit().beep();
     }
 
+    @Test
+    public void getNo(){
+        List<Phone> phoneList = this.phoneList;
+        List<String> Lists = Arrays.asList("手机A","手机B","手机F");
+        List<String> phones = new ArrayList<>();
+        /* for (Phone phone: phoneList){
+            for (String s: Lists){
+                if (s.equals(phone.getName())){
+                    phones.add(phone.getName());
+                }
+            }
+        }
+        System.out.println(phones);*/
+        List<String> fdf = phoneList.stream().map(Phone::getName).collect(toList());
+        Collection<String> result = getDiffrent(fdf, Lists);
+
+
+
+        System.out.println("fd:{}"+result);
+
+    }
+
+
+    public static Collection<String> getDiffrent(Collection<String> col1, Collection<String> col2){
+        //创建返回结果
+        Collection<String> diffrentResult = new ArrayList<>();
+        //比较出两个集合的大小，在添加进map的时候先遍历较大集合，这样子可以减少没必要的判断
+        Collection<String> bigCol = null;
+        Collection<String> smallCol = null;
+        if (col1.size() > col2.size()) {
+            bigCol = col1;
+            smallCol = col2;
+        }else {
+            bigCol = col2;
+            smallCol = col1;
+        }
+        //创建 Map<对象,出现次数> (直接指定大小减少空间浪费)
+        Map<Object, Integer> map = new HashMap<>(bigCol.size());
+        //遍历大集合把元素put进map，初始出现次数为1
+        for(String p : bigCol) {
+            map.put(p, 1);
+        }
+        //遍历小集合，如果map中不存在小集合中的元素，就添加到返回结果，如果存在，把出现次数置为2
+        for(String p : smallCol) {
+            if (map.get(p) == null) {
+                diffrentResult.add(p);
+            }else {
+                map.put(p, 2);
+            }
+        }
+        //把出现次数为1的 Key:Value 捞出，并把Key添加到返回结果
+        for(Map.Entry<Object, Integer> entry : map.entrySet()) {
+            if (entry.getValue() == 1) {
+                diffrentResult.add((String) entry.getKey());
+            }
+        }
+        return diffrentResult;
+    }
+
+
+
+    //---------------------
+
+
+
+    @Test
+    public void testList() {
+        List<Phone> phoneList = this.phoneList;
+        List<String> phoneNames = phoneList.stream().map(Phone::getName).collect(toList());
+        List<String> Lists = Arrays.asList("手机A","手机B","手机F");
+
+        //差集List
+        List<String> defectList = new ArrayList<String>();
+
+        //交集List
+        List<String> collectionList = new ArrayList<String>();
+
+        //去重并集List
+        List<String> unionList = new ArrayList<String>();
+
+        // 获取差集
+        defectList = receiveDefectList(phoneNames, Lists);
+
+        collectionList = receiveCollectionList(phoneNames, Lists);
+        System.out.println(collectionList);
+
+    }
+
+    // 获取两个ArrayList的差集、交集、去重并集(数据量大小不限制)
+    private static void getList() {
+        List<String> firstArrayList = new ArrayList<String>();
+
+        List<String> secondArrayList = new ArrayList<String>();
+
+        List<String> defectList = new ArrayList<String>();//差集List
+        List<String> collectionList = new ArrayList<String>();//交集List
+        List<String> unionList = new ArrayList<String>();//去重并集List
+        try {
+            firstArrayList.add("aaa");
+            firstArrayList.add("bbb");
+            firstArrayList.add("ccc");
+            firstArrayList.add("ddd");
+
+            secondArrayList.add("bbb");
+            secondArrayList.add("ccc");
+            secondArrayList.add("eee");
+            // 获取差集
+            defectList = receiveDefectList(firstArrayList, secondArrayList);
+            Iterator<String> defectIterator = defectList.iterator();
+            System.out.println("===================差集===================");
+            while(defectIterator.hasNext()) {
+                System.out.println(defectIterator.next());
+            }
+            // 获取交集
+            collectionList = receiveCollectionList(firstArrayList, secondArrayList);
+            Iterator<String> collectionIterator = collectionList.iterator();
+            System.out.println("===================交集===================");
+            while(collectionIterator.hasNext()) {
+                System.out.println(collectionIterator.next());
+            }
+            // 获取去重并集
+            unionList = receiveUnionList(firstArrayList, secondArrayList);
+            Iterator<String> unionIterator = unionList.iterator();
+            System.out.println("===================去重并集===================");
+            while(unionIterator.hasNext()) {
+                System.out.println(unionIterator.next());
+            }
+        }catch(Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    /**
+     * @方法描述：获取两个ArrayList的差集
+     * @param firstArrayList 第一个ArrayList
+     * @param secondArrayList 第二个ArrayList
+     * @return resultList 差集ArrayList
+     */
+    public static List<String> receiveDefectList(List<String> firstArrayList, List<String> secondArrayList) {
+        List<String> resultList = new ArrayList<String>();
+        LinkedList<String> result = new LinkedList<String>(firstArrayList);// 大集合用linkedlist
+        HashSet<String> othHash = new HashSet<String>(secondArrayList);// 小集合用hashset
+        Iterator<String> iter = result.iterator();// 采用Iterator迭代器进行数据的操作
+        while(iter.hasNext()){
+            if(othHash.contains(iter.next())){
+                iter.remove();
+            }
+        }
+        resultList = new ArrayList<String>(result);
+        return resultList;
+    }
+
+    /**
+     * @方法描述：获取两个ArrayList的交集
+     * @param firstArrayList 第一个ArrayList
+     * @param secondArrayList 第二个ArrayList
+     * @return resultList 交集ArrayList
+     */
+    public static List<String> receiveCollectionList(List<String> firstArrayList, List<String> secondArrayList) {
+        List<String> resultList = new ArrayList<String>();
+        LinkedList<String> result = new LinkedList<String>(firstArrayList);// 大集合用linkedlist
+        HashSet<String> othHash = new HashSet<String>(secondArrayList);// 小集合用hashset
+        Iterator<String> iter = result.iterator();// 采用Iterator迭代器进行数据的操作
+        while(iter.hasNext()) {
+            if(!othHash.contains(iter.next())) {
+                iter.remove();
+            }
+        }
+        resultList = new ArrayList<String>(result);
+        return resultList;
+    }
+
+    /**
+     * @方法描述：获取两个ArrayList的去重并集
+     * @param firstArrayList 第一个ArrayList
+     * @param secondArrayList 第二个ArrayList
+     * @return resultList 去重并集ArrayList
+     */
+    public static List<String> receiveUnionList(List<String> firstArrayList, List<String> secondArrayList) {
+        List<String> resultList = new ArrayList<String>();
+        Set<String> firstSet = new TreeSet<String>(firstArrayList);
+        for(String id : secondArrayList) {
+            // 当添加不成功的时候 说明firstSet中已经存在该对象
+            firstSet.add(id);
+        }
+        resultList = new ArrayList<String>(firstSet);
+        return resultList;
+    }
+
 
 }

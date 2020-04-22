@@ -1,14 +1,13 @@
 package com.example.demo;
 
-import com.example.demo.sms.SingleSms;
+import com.example.demo.putong.One;
 import lombok.extern.slf4j.Slf4j;
+import org.joda.time.DateTime;
 import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.stereotype.Component;
-import org.springframework.test.context.junit4.SpringRunner;
-
 import java.io.IOException;
+import java.util.*;
+import java.util.stream.Collectors;
 
 /**
  * @Author: 凤凰[小哥哥]
@@ -20,11 +19,23 @@ import java.io.IOException;
 public class SmsTest extends DemoApplicationTests{
 
     @Test
-    public void sendSmsTest() throws IOException {
-        SingleSms sms = Data.smsData();
-        System.out.println("字符串长度："+sms.toString().length());
-        System.out.println("压缩后：："+GZIPUtils.compress(sms.toString()).length);
-        System.out.println("解压后："+GZIPUtils.uncompress(GZIPUtils.compress(sms.toString())).length);
-        System.out.println("解压字符串后：："+GZIPUtils.uncompressToString(GZIPUtils.compress(sms.toString())).length());
+    public void getNow(){
+        /*DateTime dateTime = new DateTime();*/
+        //System.out.println("得到的结果："+getMilliSecondToTomorrow() / 1000 / 60);
+        String testUrl = null;
+        String url = Optional.ofNullable(testUrl).orElse("http:www.jd.com");
+        log.info("最终的结果：{}",url);
+
+    }
+
+    public static Long getMilliSecondToTomorrow() {
+        Calendar cal = Calendar.getInstance();
+        cal.add(Calendar.DAY_OF_MONTH, 1);
+        cal.set(Calendar.HOUR_OF_DAY, 0);
+        cal.set(Calendar.MINUTE, 0);
+        cal.set(Calendar.SECOND, 0);
+        cal.set(Calendar.MILLISECOND, 0);
+        Date date = cal.getTime();
+        return date.getTime() - System.currentTimeMillis();
     }
 }

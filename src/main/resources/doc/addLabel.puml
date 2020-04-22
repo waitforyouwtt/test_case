@@ -1,0 +1,8 @@
+@startuml
+database label
+前台 -> yh_soi_manage_productcenter: request
+yh_soi_manage_productcenter -> yh_sod_product_center: request
+
+yh_sod_product_center -> label: request
+note right: 查询是否已经存在，存在则提示。否则进行添加操作
+@enduml
