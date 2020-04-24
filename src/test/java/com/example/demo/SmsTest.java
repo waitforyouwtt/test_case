@@ -38,4 +38,42 @@ public class SmsTest extends DemoApplicationTests{
         Date date = cal.getTime();
         return date.getTime() - System.currentTimeMillis();
     }
+
+
+    @Test
+    public void test(){
+        Object o = "<?xml version=\"1.0\" encoding=\"utf-8\"?>\n" +
+                "<alipay>\n" +
+                "\n" +
+                "<is_success>F</is_success>\n" +
+                "<error>PURCHASE_TRADE_NOT_EXIST</error>\n" +
+                "\n" +
+                "<sign>QZRPvccyWUzKF+fz6K7tQJdDzfe84kxwuY/InI9g6/Lb9Uh9ltDGfkCVAhYMSLxOHcvdBY691S6CzwfBAiTHP36xu3m3H667f5PDacJ+uzPBCKjsRO4KBVU3zgxA0BNzD2ITRykdck3pFoaMz1ELhFbMMzYGngwq0vxosEFsV+6hh64pnxtzcbgWGod4mq76zN5kcsue7dAOF3d5JGrvqdAYTwIw+n8xTXQuHtEydxNiy9acm9i3we6USauJ7tFOyFWrofvc7up0NvaR+cdsh/0NstcA+3ZoYCu+mDozaSHUP2N4QUq1KSXJvdUDPlWRuzgudSFDC5pe1jFXiLQWGQ==</sign>\n" +
+                "\n" +
+                "<sign_type>RSA2</sign_type>\n" +
+                "\n" +
+                "</alipay>\n";
+        String isSuccess = getXMLValue(o,"is_success");
+        log.info("is_success:{}",isSuccess);
+    }
+
+    /**
+     * 解析xml
+     * @param xml
+     * @param key
+     * @return
+     */
+    public static String getXMLValue(Object xml, String key){
+        String value = "";
+        if (xml != null) {
+            String data = xml.toString();
+            if (data.contains(key)) {
+                String keyStart = new StringBuffer("<").append(key).append(">").toString();
+                String keyEnd = new StringBuffer("</").append(key).append(">").toString();
+                value = data.substring(data.indexOf(keyStart), data.indexOf(keyEnd)).replace(keyStart, "");
+                log.info("读取支付宝返回的参数value:"+value);
+            }
+        }
+        return value;
+    }
 }

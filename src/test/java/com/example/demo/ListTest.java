@@ -1,6 +1,5 @@
 package com.example.demo;
 
-import com.alibaba.fastjson.JSON;
 import com.example.demo.putong.Phone;
 import com.example.demo.putong.Roles;
 import com.example.demo.putong.UserInfo;
@@ -8,10 +7,7 @@ import com.google.common.base.Joiner;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.collections4.CollectionUtils;
 import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.stereotype.Component;
-import org.springframework.test.context.junit4.SpringRunner;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -30,8 +26,6 @@ import static com.example.demo.Data.rolesList;
 @Component
 @Slf4j
 public class ListTest extends DemoApplicationTests{
-
-
 
     @Test
     public void testA(){
