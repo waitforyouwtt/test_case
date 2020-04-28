@@ -1,8 +1,6 @@
 package com.example.demo;
 
-import com.example.demo.design.pattern.ContextProduct;
-import com.example.demo.design.pattern.OperationAddBaseProduct;
-import com.example.demo.design.pattern.ProductOnline;
+
 import com.example.demo.putong.ProductCombinedItem;
 import com.google.common.collect.Sets;
 import lombok.extern.slf4j.Slf4j;
@@ -111,14 +109,7 @@ public class NumberTest extends DemoApplicationTests{
         }
     }
 
-    @Test
-    public void StrategyDemo(){
-        ContextProduct contextProduct = new ContextProduct(new OperationAddBaseProduct());
-        ProductOnline online = new ProductOnline();
-        online.setTransformType((byte)1);
-        online.setProductName("基础商品");
-        log.info("得到的结果：{}",contextProduct.executeStrategy(online));
-    }
+
 
     @Test
     public void testsss(){

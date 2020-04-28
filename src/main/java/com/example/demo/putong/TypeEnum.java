@@ -43,29 +43,5 @@ public enum TypeEnum {
     private String name;
     private String code;
 
-    //将枚举转换成list格式，这样前台遍历的时候比较容易，列如 下拉框 后台调用toList方法，便可以得到code 和name
-    public static List<Map> typeEnumList() {
-        //Lists.newArrayList() = new ArrayList() javac通过自动推导尖括号里的数据类型.
-        List list = Lists.newArrayList();
-        for (TypeEnum airlineTypeEnum : TypeEnum.values()) {
-            Map<String, Object> map = new HashMap<String, Object>();
-            map.put("code", airlineTypeEnum.getCode());
-            map.put("name", airlineTypeEnum.getName());
-            list.add(map);
-        }
-        return list;
-    }
-
-    public static List toList2(){
-        List list = Lists.newArrayList();
-        for (TypeEnum airlineTypeEnum : TypeEnum.values()) {
-            list.add(airlineTypeEnum.getCode());
-        }
-        return list;
-    }
-
-    public static void main(String[] args) {
-        System.out.println("获取到的是："+toList2());
-    }
 
 }

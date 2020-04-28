@@ -11,13 +11,5 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 public class Phone2 {
-    private TypeEnum2 name;
 
-    public TypeEnum2 getName() {
-        return name;
-    }
-
-    public void setName(TypeEnum2 name) {
-        this.name = name;
-    }
 }

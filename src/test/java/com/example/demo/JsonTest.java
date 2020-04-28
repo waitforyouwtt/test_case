@@ -2,12 +2,21 @@ package com.example.demo;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
+import com.example.demo.csv.AliGlobalPayBillRowModel;
+import com.example.demo.csv.CSVUtils;
+import com.example.demo.csv.CsvUtil;
+import com.example.demo.csv.SimpleBeanInfo;
 import com.example.demo.putong.*;
+import com.opencsv.CSVReader;
+import com.opencsv.bean.ColumnPositionMappingStrategy;
+import com.opencsv.bean.CsvToBean;
 import lombok.extern.slf4j.Slf4j;
 import net.bytebuddy.agent.builder.AgentBuilder;
 import org.junit.Test;
 import org.springframework.stereotype.Component;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.*;
 import java.math.BigDecimal;
 import java.util.*;
 import java.util.stream.Collectors;
@@ -86,14 +95,67 @@ public class JsonTest extends DemoApplicationTests{
     }
 
     @Test
-    public void bigDecimalgetTest(){
-        BigDecimal decimal = new BigDecimal("1.12345");
-        String setScale = decimal.setScale(2,BigDecimal.ROUND_DOWN).toString();
-        System.out.println("金额保留2位小数："+setScale);
-
-       /* System.out.println(setScale);
-
-        BigDecimal setScale1 = decimal.setScale(4,BigDecimal.ROUND_HALF_UP);
-        System.out.println(setScale1);*/
+    public void csvTest() throws Exception {
+        CsvUtil csvUtil = new CsvUtil();
+        File destFile = new File("E:/global/fenghuang.csv");
+     /*   InputStream inputStream = file2InputStream(destFile);
+        // 将csv文件内容转成bean
+        List<AliGlobalPayBillRowModel> csvData = csvUtil.getCsvData(inputStream, AliGlobalPayBillRowModel.class);*/
+       /* List list = csvUtil.parseCsvToBean(destFile, AliGlobalPayBillRowModel.class);
+        log.info("解析csv 的结果：{}",list);*/
+        List<AliGlobalPayBillRowModel> readCsv =  CSVUtils.readCsv("E:/global/fenghuang.csv");
+        log.info("解析csv 的结果：{}",readCsv);
     }
+
+    @Test
+    public void mappingTest() throws FileNotFoundException, UnsupportedEncodingException {
+        CSVReader reader = new CSVReader(new InputStreamReader(new FileInputStream("E:/global/test.csv"),"gbk"));
+        /*
+         *基于列位置，映射成类
+         */
+        //csv文件中的第一列对应类的header，第二列对应类的header2，第三列对应类的header3
+        String[] columnMapping={"header1","header2","header3"};
+        ColumnPositionMappingStrategy<SimpleBeanInfo> mapper = new ColumnPositionMappingStrategy<SimpleBeanInfo>();
+        mapper.setColumnMapping(columnMapping);
+        mapper.setType(SimpleBeanInfo.class);
+
+        CsvToBean<SimpleBeanInfo> csvToBean = new CsvToBean<SimpleBeanInfo>();
+
+        List<SimpleBeanInfo> list = csvToBean.parse(mapper, reader);
+
+        for(SimpleBeanInfo e : list){
+            System.out.println(e);
+        }
+
+    }
+
+
+    @Test
+    public void bindingTest() throws FileNotFoundException, UnsupportedEncodingException {
+        CSVReader reader = new CSVReader(new InputStreamReader(new FileInputStream("E:/global/test.csv"),"utf-8"));
+
+        /*
+         *基于列位置，映射成类
+         */
+        //csv文件中的第一列对应类的header，第二列对应类的header2，第三列对应类的header3
+        String[] columnMapping={"header1","header2","header3"};
+        ColumnPositionMappingStrategy<SimpleBeanInfo> mapper = new ColumnPositionMappingStrategy<SimpleBeanInfo>();
+        mapper.setColumnMapping(columnMapping);
+        mapper.setType(SimpleBeanInfo.class);
+        /* */
+        CsvToBean<SimpleBeanInfo>  csvToBean = new CsvToBean<SimpleBeanInfo>();
+
+        List<SimpleBeanInfo> list = csvToBean.parse(mapper, reader);
+
+        for(SimpleBeanInfo e : list){
+            System.out.println(e);
+        }
+
+
+    }
+
+    public static InputStream file2InputStream(File file) throws FileNotFoundException {
+        return new FileInputStream(file);
+    }
+
 }

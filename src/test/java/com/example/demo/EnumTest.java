@@ -22,7 +22,7 @@ public class EnumTest extends DemoApplicationTests{
 
     @Test
     public void enumListTest(){
-        List<Map> list = TypeEnum.typeEnumList();
+      /*  List<Map> list = TypeEnum.typeEnumList();*/
         List<Phone> phones = Lists.newArrayList();
        /* list.forEach(i->{
             log.info("获取的结果：{}",i.get("name"));
@@ -32,17 +32,17 @@ public class EnumTest extends DemoApplicationTests{
             phones.add(phone);
         });*/
 
-        for (Map s: list){
+       /* for (Map s: list){
             log.info("获取的结果：{}",s.get("name"));
           Phone phone = new Phone();
           phone.setName(s.get("name").toString());
           phone.setColor("red");
           phones.add(phone);
         }
-        log.info("赋值得到的结果：{}",phones.toString());
+        log.info("赋值得到的结果：{}",phones.toString());*/
     }
 
-    @Test
+/*    @Test
     public void cycleSetValueTest(){
         List<Phone> phoneList = Data.phoneList();
         List<Map> Enumlist = TypeEnum.typeEnumList();
@@ -58,7 +58,7 @@ public class EnumTest extends DemoApplicationTests{
             });
     });
         log.info("得到的数据：{}", JSON.toJSON(phones));
-    }
+    }*/
 
 
 }
