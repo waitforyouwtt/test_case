@@ -27,6 +27,7 @@ import java.util.Map;
 @Slf4j
 public class CSVTest extends DemoApplicationTests{
 
+    //old 按行读取
     @Test
     public void lineRead() throws IOException {
         File destFile = new File("E:/global/fenghuang.csv");
@@ -50,18 +51,29 @@ public class CSVTest extends DemoApplicationTests{
         ColumnPositionMappingStrategy<SimpleBeanInfo> mapper = new ColumnPositionMappingStrategy<SimpleBeanInfo>();
         mapper.setColumnMapping(columnMapping);
         mapper.setType(SimpleBeanInfo.class);
-        /* */
         CsvToBean<SimpleBeanInfo> csvToBean = new CsvToBean<SimpleBeanInfo>();
-
         List<SimpleBeanInfo> list = csvToBean.parse(mapper, reader);
-
         for (SimpleBeanInfo e : list) {
             System.out.println(e.toString());
         }
     }
 
     @Test
-    public void indexAnnotionRead() throws FileNotFoundException, UnsupportedEncodingException {
+    public void  headerColumnNameMapping() throws FileNotFoundException, UnsupportedEncodingException {
+        CSVReader reader = new CSVReader(new InputStreamReader(new FileInputStream("E:/global/test.csv"),"gbk"));
+        HeaderColumnNameMappingStrategy<SimpleBeanInfo> mapper = new
+                HeaderColumnNameMappingStrategy<SimpleBeanInfo>();
+        mapper.setType(SimpleBeanInfo.class);
+        CsvToBean<SimpleBeanInfo>  csvToBean = new CsvToBean<SimpleBeanInfo>();
+
+        List<SimpleBeanInfo> list = csvToBean.parse(mapper, reader);
+
+        for(SimpleBeanInfo e : list){
+            System.out.println(e);
+        }
+    }
+
+    public void  headerColumnNameTranslate() throws FileNotFoundException, UnsupportedEncodingException {
         CSVReader reader = new CSVReader(new InputStreamReader(new FileInputStream("E:/global/test.csv"),"gbk"));
         /*
          * 基于列名转换，映射成类

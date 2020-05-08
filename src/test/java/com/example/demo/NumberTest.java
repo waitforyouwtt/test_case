@@ -5,19 +5,27 @@ import com.example.demo.putong.ProductCombinedItem;
 import com.google.common.collect.Sets;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.collections4.CollectionUtils;
+import org.apache.commons.lang3.StringUtils;
+import org.apache.poi.hwpf.HWPFDocument;
+import org.apache.poi.hwpf.converter.PicturesManager;
+import org.apache.poi.hwpf.converter.WordToHtmlConverter;
+import org.apache.poi.hwpf.usermodel.PictureType;
 import org.junit.Test;
 import org.springframework.stereotype.Component;
-import java.math.BigDecimal;
-import java.text.DecimalFormat;
+
+import javax.xml.parsers.DocumentBuilderFactory;
+import javax.xml.parsers.ParserConfigurationException;
+import javax.xml.transform.*;
+import javax.xml.transform.dom.DOMSource;
+import javax.xml.transform.stream.StreamResult;
+import java.io.*;
 import java.util.*;
 import java.util.function.Function;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 
-/*
-import com.spire.doc.Document;
-import com.spire.doc.ToPdfParameterList;
-import com.spire.pdf.security.*;
-*/
+
 
 /**
  * @Author: 凤凰[小哥哥]
@@ -27,89 +35,6 @@ import com.spire.pdf.security.*;
 @Component
 @Slf4j
 public class NumberTest extends DemoApplicationTests{
-
-    @Test
-    public void bigdecimal(){
-        BigDecimal a = new BigDecimal("-3.33");
-        BigDecimal b = new BigDecimal("4.44");
-
-        if (a.compareTo(BigDecimal.ZERO) == 0){
-            System.out.println("等于");
-        }else if(a.compareTo(BigDecimal.ZERO) == 1){
-            System.out.println("大于");
-        }else if(a.compareTo(BigDecimal.ZERO) == -1) {
-            System.out.println("小于");
-        }
-    }
-
-    @Test
-    public void ObjectTest(){
-        Integer a = 1;
-        Integer b = 1;
-        int  aa = 1;
-        int  bb = 1;
-
-        if (a.equals(b)){
-            log.info("等于");
-        }else{
-            log.info("不等于");
-        }
-
-        if (aa == bb){
-            log.info("aa == bb");
-        }else{
-            log.info("aa != bb");
-        }
-    }
-
-    @Test
-    public void operatiorTest(){
-        BigDecimal price = BigDecimal.valueOf(10.23);
-        BigDecimal amount = price.multiply(BigDecimal.valueOf(100));
-        int productPrice = amount.intValue();
-        System.out.println("得到的金额："+productPrice);
-    }
-
-    @Test
-    public void retainNumberTest(){
-        Double number = 7832.5675789;
-        DecimalFormat decimalFormat = new DecimalFormat("#.000");
-        log.info("四舍五入保留三位小数：{}",decimalFormat.format(number));
-    }
-
-    @Test
-    public void amountTest(){
-        BigDecimal lastAmount = new BigDecimal(18929.69);
-        BigDecimal thisAmount = new BigDecimal(18783.98);
-        BigDecimal subtract = lastAmount.subtract(thisAmount).setScale(2,BigDecimal.ROUND_UP);
-        log.info("差额：{}",subtract);
-    }
-
-    @Test
-    public void save(){
-        /*DecimalFormat df = new DecimalFormat("###.#");
-        BigDecimal b1 = new BigDecimal("28.1109");
-        BigDecimal b2 = new BigDecimal("28.00");
-        System.out.println("小数格式化：" + df.format(b1));
-        System.out.println("整数格式化：" + df.format(b2));*/
-        Integer discountPrice = 2;
-        Integer oldSellingPrice = 2;
-        DecimalFormat df = new DecimalFormat("###.#");
-        BigDecimal discountRate =  new BigDecimal(discountPrice).multiply(new BigDecimal(10)).divide(new BigDecimal(oldSellingPrice),1,BigDecimal.ROUND_DOWN);
-        log.info("得到的折扣是：{}",df.format(discountRate));
-    }
-
-    @Test
-    public void isNullTest(){
-        BigDecimal money = new BigDecimal("");
-        if (money == null){
-            log.info("kong");
-        }else{
-            log.info("不是kong");
-        }
-    }
-
-
 
     @Test
     public void testsss(){
@@ -136,63 +61,85 @@ public class NumberTest extends DemoApplicationTests{
     }
 
 
+
+
     @Test
-    public  void mainDemo(){
-        Set<Integer> set1= Sets.newHashSet(1,2,3,4,5);
-        Set<Integer> set2=Sets.newHashSet(3,4,5,6,7);
+    public void wordToPdf() throws IOException, ParserConfigurationException, TransformerException {
+      String filepath = "E:\\文件整理";
+      String docFile = filepath + "dd.doc";
+      final String picturesPath = filepath+ "/image/";
+      File picturesDir = new File(picturesPath);
+      String content = null;
 
-        List<String> list1 = Arrays.asList("a","b","c","d","a");
-        List<String> list2 = Arrays.asList("c","d","e","f");
-        Set<String> setOne = new HashSet<>(list1);
-        Set<String> setTwo = new HashSet<>(list2);
-      /*  System.out.println("得到的数据："+ setOne);*/
+        HWPFDocument wordDocument = new HWPFDocument(new FileInputStream(docFile));
+        WordToHtmlConverter wordToHtmlConverter = new WordToHtmlConverter(DocumentBuilderFactory.newInstance().newDocumentBuilder().newDocument());
+        wordToHtmlConverter.setPicturesManager(new PicturesManager() {
+            @Override
+            public String savePicture(byte[] content, PictureType pictureType, String suggestedName, float widthInches, float heightInches) {
+                File file = new File(picturesPath + suggestedName);
+                FileOutputStream fos = null;
+                try{
+                    fos = new FileOutputStream(file);
+                    fos.write(content);
+                    fos.close();
+                }catch (Exception e){
+                    e.getMessage();
+                }
+                return picturesPath + suggestedName;
+            }
+        });
 
+        wordToHtmlConverter.processDocument(wordDocument);
+        org.w3c.dom.Document htmlDocument = wordToHtmlConverter.getDocument();
+        ByteArrayOutputStream out = new ByteArrayOutputStream();
+        DOMSource domSource = new DOMSource(htmlDocument);
+        StreamResult streamResult = new StreamResult(out);
 
-        //交集
-        Sets.SetView<String> intersection = Sets.intersection(setOne, setTwo);
-        List<String> collect = intersection.parallelStream().collect(Collectors.toList());
-        log.info("得到的数据：{}",collect);
-
-
-        //差集
-        System.out.println("差集为：");
-        Sets.SetView<String> diff=Sets.difference(setOne, setTwo);
-        for (String integer : diff) {
-            System.out.println(integer);
-        }
-        //并集
-        System.out.println("并集为：");
-        Sets.SetView<Integer> union=Sets.union(set1, set2);
-        for (Integer integer : union) {
-            System.out.println(integer);
-        }
+        TransformerFactory tf = TransformerFactory.newInstance();
+        Transformer serializer = tf.newTransformer();
+        serializer.setOutputProperty(OutputKeys.ENCODING,"UTF-8");
+        serializer.setOutputProperty(OutputKeys.INDENT,"yes");
+        serializer.setOutputProperty(OutputKeys.METHOD,"html");
+        serializer.transform(domSource,streamResult);
+        out.close();
+        content = out.toString();
+        log.info("获取的内容：{}",content);
     }
 
-/*    @Test
-    public void wordToPdf(){
+    @Test
+    public void wordToPdf2(){
+        String filepath = "E:\\文件整理";
+        String docFile = filepath + "chuiniu.doc";
+    }
 
-        //加载Word示例文档
-        Document document1 = new Document();
-        document1.loadFromFile("C:\\Users\\Test1\\Desktop\\Sample.docx");
+    /**
+     * 非常规字符的区域都替换掉
+     */
+    private static final String EMOJI_RANGE_REGEX_EX = "([\\x{10000}-\\x{10ffff}\ud800-\udfff])";
 
-        //保存结果文档
-        document1.saveToFile("output/toPDF", FileFormat.PDF);
+    private static final Pattern PATTERN_EX = Pattern.compile(EMOJI_RANGE_REGEX_EX,
+            Pattern.UNICODE_CASE | Pattern.CASE_INSENSITIVE);
 
-       // ---------------------------------------------------------------------------
+    /**
+     * 查找和移除emoji表情 @param input
+     *
+     * @param input 可能包含表情的输入文字
+     * @return 被移除表情后剩余的文字
+     */
 
-        //加载Word示例文档
-        Document document = new Document();
-        document.loadFromFile("C:\\Users\\Test1\\Desktop\\Sample.docx");
+    public static String eraseEmojisEx(String input) {
+        if (StringUtils.isBlank(input)) {
+            return input;
+        }
 
-        //创建一个参数
-        ToPdfParameterList toPdf = new ToPdfParameterList();
+        Matcher matcher = PATTERN_EX.matcher(input);
+        StringBuffer sb = new StringBuffer();
+        while (matcher.find()) {
+            matcher.appendReplacement(sb, StringUtils.EMPTY);
+        }
 
-        //设置密码
-        String password = "abc123";
-        toPdf.getPdfSecurity().encrypt(password, password, PdfPermissionsFlags.None, PdfEncryptionKeySize.Key_128_Bit);
+        matcher.appendTail(sb);
+        return sb.toString();
 
-        //保存文档.
-        document.saveToFile("output/toPDFWithPassword", toPdf);
-
-    }*/
+    }
 }

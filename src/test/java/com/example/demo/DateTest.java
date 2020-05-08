@@ -58,22 +58,13 @@ public class DateTest extends DemoApplicationTests{
 
     @Test
     public void dateTest(){
-        Date beginDate = null;// strToDateLong("2012-12-12 12:12:12");
+        Date beginDate = strToDateLong("2012-12-12 12:12:12");
         Date endDate   = strToDateLong("2032-12-12 12:12:12");
         if (new Date().after(beginDate) || new Date().before(endDate)){
             log.info("跳出循环");
         }else{
             log.info("符合条件");
         }
-
-    }
-
-    @Test
-    public void getNowTest(){
-        long systemTime = System.currentTimeMillis();
-        log.info("系统时间：{}",systemTime);
-        long now = new Date().getTime();
-        log.info("当前时间：{}",now);
     }
 
     @Test

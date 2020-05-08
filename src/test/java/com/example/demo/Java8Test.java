@@ -5,13 +5,10 @@ import com.example.demo.putong.Email;
 import com.example.demo.putong.Phone;
 import com.example.demo.putong.Roles;
 import com.google.common.collect.Lists;
-import io.jsonwebtoken.lang.Assert;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.junit.Test;
 import org.springframework.stereotype.Component;
-
-import java.text.DateFormat;
 import java.text.ParsePosition;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
@@ -22,7 +19,6 @@ import java.util.concurrent.ConcurrentSkipListMap;
 import java.util.function.BinaryOperator;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
-
 import static com.example.demo.DateTest.DATE_TO_STRING_DEFAULT_PATTERN;
 import static java.util.stream.Collectors.groupingBy;
 import static java.util.stream.Collectors.toList;

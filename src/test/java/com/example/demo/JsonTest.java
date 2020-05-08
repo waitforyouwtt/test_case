@@ -1,25 +1,18 @@
 package com.example.demo;
 
-import com.alibaba.fastjson.JSON;
-import com.alibaba.fastjson.JSONObject;
 import com.example.demo.csv.AliGlobalPayBillRowModel;
 import com.example.demo.csv.CSVUtils;
 import com.example.demo.csv.CsvUtil;
 import com.example.demo.csv.SimpleBeanInfo;
-import com.example.demo.putong.*;
 import com.opencsv.CSVReader;
 import com.opencsv.bean.ColumnPositionMappingStrategy;
 import com.opencsv.bean.CsvToBean;
 import lombok.extern.slf4j.Slf4j;
-import net.bytebuddy.agent.builder.AgentBuilder;
 import org.junit.Test;
 import org.springframework.stereotype.Component;
-import org.springframework.web.multipart.MultipartFile;
-
 import java.io.*;
-import java.math.BigDecimal;
 import java.util.*;
-import java.util.stream.Collectors;
+
 
 /**
  * @Author: 凤凰[小哥哥]

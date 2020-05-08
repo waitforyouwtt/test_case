@@ -1,8 +1,5 @@
 package com.example.demo.csv;
 
-import com.opencsv.bean.CsvBindByName;
-import com.opencsv.bean.CsvBindByPosition;
-
 /**
  * @Author: luoxian
  * @Date: 2020/4/28 18:36
