@@ -15,9 +15,7 @@ import org.junit.Test;
 import org.springframework.stereotype.Component;
 
 import java.io.*;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 
 /**
@@ -31,38 +29,32 @@ public class CSVTest2 extends DemoApplicationTests{
 
     @Test
     public void indexNotAnnotionRead() throws FileNotFoundException, UnsupportedEncodingException {
-        CSVReader reader = new CSVReader(new InputStreamReader(new FileInputStream("E:/global/fenghuang.csv"), "gbk"));
+        buildThirdpartyBillResponseDto("www.baidu.com");
+    }
+
+    public List<ThirdpartyBillResponseDto> buildThirdpartyBillResponseDto(String fileName) throws FileNotFoundException, UnsupportedEncodingException {
+        CSVReader reader = new CSVReader(new InputStreamReader(new FileInputStream(fileName), "gbk"));
+
+        List<ThirdpartyBillResponseDto> list = new ArrayList<>();
         /*
          *基于列位置，映射成类
          */
         //csv文件中的第一列对应类的header，第二列对应类的header2，第三列对应类的header3
-        String[] columnMapping = {
-                "partnerTransactionId",
-                "transactionId",
-                "amount",
-                   "rmbAmount",
-                  "fee",
-                   "distributeAmount",
-                   "distributeRmbAmount",
-                   "settlement",
-                   "rmbSettlement",
-                   "currency",
-                   "rate",
-                   "paymentTime",
-                   "settlementTime",
-                   "type",
-                   "status",
-                   "remarks",
-                   "code",
-                   "originalPartnerTransactionId"
-
-        };
+        String[] columnMapping = {"partnerTransactionId", "transactionId", "amount", "rmbAmount", "fee", "distributeAmount",
+                "distributeRmbAmount", "settlement", "rmbSettlement", "currency", "rate", "paymentTime", "settlementTime",
+                "type", "status", "remarks", "code", "originalPartnerTransactionId"};
         ColumnPositionMappingStrategy<AliGlobalPayBillRowModel> mapper = new ColumnPositionMappingStrategy<AliGlobalPayBillRowModel>();
         mapper.setColumnMapping(columnMapping);
         mapper.setType(AliGlobalPayBillRowModel.class);
         CsvToBean<AliGlobalPayBillRowModel> csvToBean = new CsvToBean<AliGlobalPayBillRowModel>();
         List<AliGlobalPayBillRowModel> globalPayBillRowModelList = csvToBean.parse(mapper, reader);
         log.info("读取支付宝跨境购csv 表格内容：{}", JSON.toJSONString(globalPayBillRowModelList));
+        for (AliGlobalPayBillRowModel model: globalPayBillRowModelList){
+            ThirdpartyBillResponseDto dto = new ThirdpartyBillResponseDto();
+            //
+            list.add(dto);
+        }
+        return list;
     }
 
 
