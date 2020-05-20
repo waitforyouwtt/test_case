@@ -55,37 +55,7 @@ public class JsonTest extends DemoApplicationTests{
         System.out.println(map.toString());
     }
 
-    @Test
-    public void fdf(){
 
-        Map map = new HashMap();
-
-        map.put("code","1010");
-
-        Fruit fruit = new Fruit();
-        Apple apple = new Apple("red",150L,1);
-        Apple apple2 = new Apple("yellow",160L,2);
-        List<Apple> apples = new ArrayList<>();
-        apples.add(apple);
-        apples.add(apple2);
-        fruit.setAppleList(apples);
-        StringBuffer result = new StringBuffer();
-            // red^1 | yellow^2
-
-        for(int i = 0 ; i < fruit.getAppleList().size();i++){
-            Apple   apple1 = fruit.getAppleList().get(i);
-            result.append(apple1.getColor());
-            result.append("^");
-            result.append(apple1.getQuality());
-            if(i < fruit.getAppleList().size()-1  ){
-                result.append("|");
-            }
-        }
-
-        map.put("color","red");
-        map.put("fruit",result.toString());
-        log.info("得到的结果：{}",map.toString());
-    }
 
     @Test
     public void csvTest() throws Exception {
@@ -145,10 +115,6 @@ public class JsonTest extends DemoApplicationTests{
         }
 
 
-    }
-
-    public static InputStream file2InputStream(File file) throws FileNotFoundException {
-        return new FileInputStream(file);
     }
 
 }

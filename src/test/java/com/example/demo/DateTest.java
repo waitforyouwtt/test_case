@@ -1,17 +1,14 @@
 package com.example.demo;
 
-import com.example.demo.putong.Email;
+
 import lombok.extern.slf4j.Slf4j;
-import org.apache.commons.lang3.StringUtils;
-import org.assertj.core.util.Lists;
 import org.junit.Test;
 import org.springframework.stereotype.Component;
-
-import java.math.BigDecimal;
 import java.text.ParsePosition;
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.temporal.TemporalAdjusters;
 import java.util.*;
-import java.util.stream.Collectors;
 
 /**
  * @Author: 凤凰[小哥哥]
@@ -68,14 +65,34 @@ public class DateTest extends DemoApplicationTests{
     }
 
     @Test
-    public void getMaxTest(){
-        BigDecimal a = new BigDecimal("10.5");
-        BigDecimal b = new BigDecimal("20.5");
-        if (a.compareTo(b) == -1){
-            log.info("a 比较小");
-        }else {
-            log.info("b 比较小");
-        }
+    public void dateFormat(){
+        Date currentTime = new Date();
+        SimpleDateFormat formatter = new SimpleDateFormat("yyyy_MM_dd");
+        String dateString = formatter.format(currentTime);
+        log.info("dateS：{}",dateString);
+    }
+
+    @Test
+    public void fd14(){
+        log.info(getNowFormat());
+        LocalDate today = LocalDate.now();
+        //本月的第一天
+        LocalDate firstday = LocalDate.of(today.getYear(),today.getMonth(),1);
+        //本月的最后一天
+        LocalDate lastDay =today.with(TemporalAdjusters.lastDayOfMonth());
+        System.out.println("本月的第一天" + firstday);
+        System.out.println("本月的最后一天" + lastDay);
+
+        log.info(getLastDay().substring(0,6));
+    }
+
+    public static String getNowFormat() {
+        SimpleDateFormat df = new SimpleDateFormat("yyyyMMddHHmmss");
+        return  df.format(new Date());
+    }
+
+    private static String getLastDay(){
+        return   LocalDate.now().with(TemporalAdjusters.lastDayOfMonth()).toString().replace("-", "");
     }
 
 }

@@ -1,7 +1,10 @@
 package com.example.demo.csv;
 
+import com.opencsv.bean.CsvBindByName;
 import lombok.Data;
 import lombok.ToString;
+
+import java.math.BigDecimal;
 
 
 /**
@@ -13,62 +16,157 @@ import lombok.ToString;
 @ToString
 public class AliGlobalPayBillRowModel {
 
-    //外部交易流水编码
-    //@CsvBindByName(column = "Partner_transaction_id")
+    //商户交易号（即：支付时请求参数中的Out_trade_no或者退款时的out_return_no）
     private String partnerTransactionId;
 
-    //交易流水
-    //@CsvBindByName(column = "Transaction_id")
-    private String transactionId;
-
-    //@CsvBindByName(column = "Amount")
+    //交易金额（外币）
     private String amount;
 
-    //@CsvBindByName(column = "Rmb_amount")
+    //	交易金额（人民币）
     private String rmbAmount;
 
-    //@CsvBindByName(column = "Fee")
+    //手续费（外币）
     private String fee;
 
-    //@CsvBindByName(column = "Distribute_amount")
-    private String distributeAmount;
-
-    //@CsvBindByName(column = "Distribute_rmb_amount")
-    private String distributeRmbAmount;
-
-    //@CsvBindByName(column = "Settlement")
+    //结算金额（外币）
     private String settlement;
 
-    //@CsvBindByName(column = "Rmb_settlement")
+    //结算金额（人民币）
     private String rmbSettlement;
 
-    //@CsvBindByName(column = "Currency")
+    //币种
     private String currency;
 
-    //@CsvBindByName(column = "Rate")
+    //	汇率
     private String rate;
 
-    //@CsvBindByName(column = "Payment_time")
+    //支付时间
     private String paymentTime;
 
-    //@CsvBindByName(column = "Settlement_time")
+    //结算时间
     private String settlementTime;
 
-    //@CsvBindByName(column = "Type")
+    //交易类型
     private String type;
 
-    //@CsvBindByName(column = "Status")
+    //交易状态  交易已成功：P   交易已清算：L
     private String status;
 
-    //@CsvBindByName(column = "Remarks")
+    //备注
     private String remarks;
 
-    //@CsvBindByName(column = "code")
+    //原始商户交易号（即：支付时上传的out_trade_no）
     private String originalPartnerTransactionId;
 
-    //@CsvBindByName(column = "Original_partner_transaction_ID")
-   // private String shroffAccountIdentity; //收款账户标识
+    public String getPartnerTransactionId() {
+        return partnerTransactionId;
+    }
 
+    public void setPartnerTransactionId(String partnerTransactionId) {
+        this.partnerTransactionId = partnerTransactionId;
+    }
 
+    public String getAmount() {
+        return amount;
+    }
 
+    public void setAmount(String amount) {
+        this.amount = amount;
+    }
+
+    public String getRmbAmount() {
+        return rmbAmount;
+    }
+
+    public void setRmbAmount(String rmbAmount) {
+        this.rmbAmount = rmbAmount;
+    }
+
+    public String getFee() {
+        return fee;
+    }
+
+    public void setFee(String fee) {
+        this.fee = fee;
+    }
+
+    public String getSettlement() {
+        return settlement;
+    }
+
+    public void setSettlement(String settlement) {
+        this.settlement = settlement;
+    }
+
+    public String getRmbSettlement() {
+        return rmbSettlement;
+    }
+
+    public void setRmbSettlement(String rmbSettlement) {
+        this.rmbSettlement = rmbSettlement;
+    }
+
+    public String getCurrency() {
+        return currency;
+    }
+
+    public void setCurrency(String currency) {
+        this.currency = currency;
+    }
+
+    public String getRate() {
+        return rate;
+    }
+
+    public void setRate(String rate) {
+        this.rate = rate;
+    }
+
+    public String getPaymentTime() {
+        return paymentTime;
+    }
+
+    public void setPaymentTime(String paymentTime) {
+        this.paymentTime = paymentTime;
+    }
+
+    public String getSettlementTime() {
+        return settlementTime;
+    }
+
+    public void setSettlementTime(String settlementTime) {
+        this.settlementTime = settlementTime;
+    }
+
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
+
+    public String getRemarks() {
+        return remarks;
+    }
+
+    public void setRemarks(String remarks) {
+        this.remarks = remarks;
+    }
+
+    public String getOriginalPartnerTransactionId() {
+        return originalPartnerTransactionId;
+    }
+
+    public void setOriginalPartnerTransactionId(String originalPartnerTransactionId) {
+        this.originalPartnerTransactionId = originalPartnerTransactionId;
+    }
 }
