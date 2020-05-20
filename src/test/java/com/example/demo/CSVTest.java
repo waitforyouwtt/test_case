@@ -3,6 +3,8 @@ package com.example.demo;
 
 import com.example.demo.csv.SimpleBeanInfo;
 import com.example.demo.csv.SimpleBeanInfo2;
+import com.example.demo.utils.CsvFileWriter;
+import com.example.demo.utils.CsvWriter;
 import com.opencsv.CSVReader;
 import com.opencsv.bean.ColumnPositionMappingStrategy;
 import com.opencsv.bean.CsvToBean;
@@ -96,6 +98,10 @@ public class CSVTest extends DemoApplicationTests{
         for(SimpleBeanInfo2 e : list){
             System.out.println(e);
         }
+    }
+
+    public void createCSVTest(){
+
     }
 
 }

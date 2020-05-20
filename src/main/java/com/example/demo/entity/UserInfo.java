@@ -23,6 +23,16 @@ public class UserInfo implements Serializable {
 
     private Date birthday;
 
-    private List<Roles> rolesList;
+    // private List<Roles> rolesList;
+
+    private String account;
+
+    private String name;
+
+    private String telephone;
+
+    private String address;
+
+    private String sex;
 
 }
